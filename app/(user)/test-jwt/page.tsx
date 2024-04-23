@@ -6,6 +6,8 @@ export default function TestJWT() {
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState(null);
   const [unAuthorized, setUnAuthorized] = useState(false);
+  
+  // handle login
   const handleLogin = async () => {
     const email = "mengseuslot3@gmail.com";
     const password = "Wtfbro1234";
@@ -59,6 +61,19 @@ export default function TestJWT() {
       })
       .catch((error) => console.log(error));
   };
+  // handle logout
+  const handleLogOut = async ()=>{
+    fetch(process.env.NEXT_PUBLIC_API_URL + "/logout", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((error) => console.log(error));
+  }
   return (
     <div>
       <main className="h-screen grid place-content-center">
@@ -83,6 +98,12 @@ export default function TestJWT() {
             Refresh
           </button>
         )}
+        <button
+          className="my-4 p-4 bg-red-500 rounded-xl text-3xl text-gray-200 hover:bg-red-800"
+          onClick={handleLogOut}
+        >
+          Logout
+        </button>
       </main>
     </div>
   );
